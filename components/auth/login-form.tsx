@@ -29,8 +29,12 @@ export function LoginForm() {
 
     try {
       await login(email, password);
-    } catch (err: any) {
-      setError(err.message || 'Failed to login');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Failed to login');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -80,7 +84,7 @@ export function LoginForm() {
       </CardContent>
       <CardFooter className="flex justify-center">
         <p className="text-sm text-center">
-          Don't have an account?{' '}
+          Don&apos;t have an account?{' '}
           <Link href="/auth/register" className="text-blue-600 hover:underline">
             Sign up
           </Link>

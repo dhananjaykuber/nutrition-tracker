@@ -36,8 +36,12 @@ export function RegisterForm() {
 
     try {
       await register(email, password);
-    } catch (err: any) {
-      setError(err.message || 'Failed to register');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Failed to register');
+      }
     } finally {
       setIsLoading(false);
     }
