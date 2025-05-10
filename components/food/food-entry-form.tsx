@@ -121,7 +121,7 @@ export function FoodEntryForm({ onSuccess }: { onSuccess?: () => void }) {
       : null;
 
   return (
-    <Card>
+    <Card className="h-fit">
       <CardHeader>
         <CardTitle>Add Food Entry</CardTitle>
       </CardHeader>
