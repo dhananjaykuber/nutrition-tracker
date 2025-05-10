@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/providers/auth-provider';
-import { DailySummary as DailySummaryType, FoodEntry } from '@/lib/types';
+import { DailySummary as DailySummaryType } from '@/lib/types';
 import { getDailySummary, deleteFoodEntry } from '@/lib/food-service';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';

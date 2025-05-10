@@ -40,7 +40,7 @@ export function WeeklySummary() {
 
   useEffect(() => {
     loadSummaries();
-  }, [user, startDate]);
+  }, [user, startDate, loadSummaries]);
 
   const navigateWeek = (direction: 'prev' | 'next') => {
     const days = direction === 'prev' ? -7 : 7;

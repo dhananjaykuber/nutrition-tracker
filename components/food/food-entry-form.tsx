@@ -96,10 +96,14 @@ export function FoodEntryForm({ onSuccess }: { onSuccess?: () => void }) {
       if (onSuccess) {
         onSuccess();
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Failed to add food entry');
+        toast.error(err.message || 'Failed to add food entry');
+      } else {
+        setError('An unknown error occurred');
+      }
       console.error('Error adding food entry:', err);
-      setError(err.message || 'Failed to add food entry');
-      toast.error(err.message || 'Failed to add food entry');
     } finally {
       setIsLoading(false);
     }
