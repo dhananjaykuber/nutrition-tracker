@@ -30,5 +30,9 @@ export default function AuthRedirect({
     return null;
   }
 
-  return <>{children}</>;
+  return (
+    <div className="min-h-[100vh] flex items-center justify-center mx-4">
+      {children}
+    </div>
+  );
 }
