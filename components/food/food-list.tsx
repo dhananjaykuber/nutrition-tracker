@@ -45,7 +45,7 @@ export function FoodList() {
 
   useEffect(() => {
     loadFoodItems();
-  }, [user, loadFoodItems]);
+  }, [user]);
 
   const handleDelete = async (id: string) => {
     if (!confirm('Are you sure you want to delete this food item?')) {
