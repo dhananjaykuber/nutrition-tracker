@@ -47,7 +47,7 @@ export function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left" className="w-64 p-0">
-              <SheetHeader className="px-4 py-4 border-b">
+              <SheetHeader className="px-4 py-4 border-b ">
                 <SheetTitle>Nutrition Tracker</SheetTitle>
               </SheetHeader>
               <div className="py-4">
@@ -61,7 +61,7 @@ export function Header() {
 
           <Link
             href="/dashboard"
-            className="text-lg md:text-xl font-bold text-gray-800"
+            className="hidden md:block text-xl font-bold text-gray-800"
           >
             Nutrition Tracker
           </Link>
