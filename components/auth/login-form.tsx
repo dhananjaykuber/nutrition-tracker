@@ -43,7 +43,7 @@ export function LoginForm() {
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
-        <CardTitle className="text-2xl">Log in to Health Tracker</CardTitle>
+        <CardTitle className="text-2xl">Log in to Nutrition Tracker</CardTitle>
         <CardDescription>
           Enter your email and password to access your account
         </CardDescription>

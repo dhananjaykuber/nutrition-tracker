@@ -73,7 +73,7 @@ export function WeeklySummary() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-3 md:flex-row flex-col">
         <h2 className="text-xl font-semibold">
           Week of {format(startDate, 'MMM d')} -{' '}
           {format(addDays(startDate, 6), 'MMM d, yyyy')}

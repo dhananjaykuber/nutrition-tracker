@@ -269,7 +269,7 @@ export function FoodItemForm({ onSuccess }: { onSuccess?: () => void }) {
                 Serving Unit
               </label>
               <Select value={servingUnit} onValueChange={setServingUnit}>
-                <SelectTrigger>
+                <SelectTrigger className="w-full">
                   <SelectValue placeholder="Select unit" />
                 </SelectTrigger>
                 <SelectContent>
