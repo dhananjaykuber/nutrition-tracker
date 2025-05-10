@@ -15,6 +15,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { formatNumber } from '@/lib/utils';
+import { FoodItemEditForm } from './food-item-edit-form';
 
 export function FoodList() {
   const { user } = useAuth();
@@ -22,6 +23,7 @@ export function FoodList() {
   const [foodItems, setFoodItems] = useState<FoodItem[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState('');
+  const [editingItemId, setEditingItemId] = useState<string | null>(null);
 
   const loadFoodItems = async () => {
     if (!user) return;
@@ -61,6 +63,14 @@ export function FoodList() {
     }
   };
 
+  const handleEditClick = (id: string) => {
+    setEditingItemId(id);
+  };
+
+  const handleEditSuccess = () => {
+    loadFoodItems();
+  };
+
   if (isLoading) {
     return (
       <div className="flex justify-center items-center p-8">
@@ -89,56 +99,80 @@ export function FoodList() {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>My Food Items</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead>Name</TableHead>
-              <TableHead className="text-right">Protein (g)</TableHead>
-              <TableHead className="text-right">Carbs (g)</TableHead>
-              <TableHead className="text-right">Fat (g)</TableHead>
-              <TableHead className="text-right">Calories</TableHead>
-              <TableHead className="text-right">Serving</TableHead>
-              <TableHead className="text-right">Actions</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {foodItems.map((item) => (
-              <TableRow key={item.id}>
-                <TableCell className="font-medium">{item.name}</TableCell>
-                <TableCell className="text-right">
-                  {formatNumber(item.protein)}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatNumber(item.carbs)}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatNumber(item.fat)}
-                </TableCell>
-                <TableCell className="text-right">
-                  {formatNumber(item.calories, 0)}
-                </TableCell>
-                <TableCell className="text-right">
-                  {item.servingSize} {item.servingUnit}
-                </TableCell>
-                <TableCell className="text-right">
-                  <Button
-                    variant="destructive"
-                    size="sm"
-                    onClick={() => handleDelete(item.id)}
-                  >
-                    Delete
-                  </Button>
-                </TableCell>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>My Food Items</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead className="text-right">Protein (g)</TableHead>
+                <TableHead className="text-right">Carbs (g)</TableHead>
+                <TableHead className="text-right">Fat (g)</TableHead>
+                <TableHead className="text-right">Calories</TableHead>
+                <TableHead className="text-right">Serving</TableHead>
+                <TableHead className="text-right">Actions</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
+            </TableHeader>
+            <TableBody>
+              {foodItems.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell className="font-medium">{item.name}</TableCell>
+                  <TableCell className="text-right">
+                    {formatNumber(item.protein)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {formatNumber(item.carbs)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {formatNumber(item.fat)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {formatNumber(item.calories, 0)}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    {item.servingSize} {item.servingUnit}
+                  </TableCell>
+                  <TableCell className="text-right">
+                    <div className="flex gap-2 justify-end">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => handleEditClick(item.id)}
+                      >
+                        Edit
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={() => handleDelete(item.id)}
+                      >
+                        Delete
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+
+      {editingItemId && (
+        <FoodItemEditForm
+          foodItemId={editingItemId}
+          open={!!editingItemId}
+          onOpenChange={(open) => {
+            if (!open) {
+              setEditingItemId(null);
+            }
+          }}
+          onSuccess={handleEditSuccess}
+        />
+      )}
+    </>
   );
 }
