@@ -191,10 +191,14 @@ export function FoodItemEditForm({
       if (onSuccess) {
         onSuccess();
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'Failed to update food item');
+        toast.error(err.message || 'Failed to update food item');
+      } else {
+        setError('Failed to update food item');
+      }
       console.error('Error updating food item:', err);
-      setError(err.message || 'Failed to update food item');
-      toast.error(err.message || 'Failed to update food item');
     } finally {
       setIsLoading(false);
     }
